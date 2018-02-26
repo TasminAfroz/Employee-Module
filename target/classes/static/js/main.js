@@ -1,16 +1,6 @@
 'use strict';
 
 $(document).ready( function () {
-//    let table = $('#employee-table').dataTable();
-//    let tableTools = new $.fn.dataTable.TableTools( table, {
-//        "buttons": [
-//            "prev",
-//            "next",
-//            "search": false
-//        ]
-//    } );
-//
-//    $( tableTools.fnContainer() ).insertAfter('div.info');
     
     var table = $('#employee-table').DataTable({    	
 		'ajax' : '/api/employee/list',
@@ -18,6 +8,20 @@ $(document).ready( function () {
 		'searching': false,
 		'lengthChange': false,
 		"pageLength": 10,
+		'bInfo': false,
+		// https://datatables.net/reference/api/page.info()
+		// https://legacy.datatables.net/ref
+		// http://legacy.datatables.net/usage/i18n (this is for curiosity)
+		"fnDrawCallback": function(oSettings) {
+		    var pageInfo = this.api().page.info();
+//			console.log( 'fnDrawCallback' );
+//		    console.log(pageInfo.start)
+//		    console.log(pageInfo.end)
+//		    console.log(pageInfo.recordsDisplay)
+		    var info = (pageInfo.start+1)+"-"+pageInfo.end+" / "+pageInfo.recordsDisplay;
+		    $("#paginate_info").text(info);
+		  },
+		"dom": "lfrti",
 		'columnDefs': [
 		    { 'orderable': false, 'targets': '_all' }
 		],
@@ -64,20 +68,13 @@ $(document).ready( function () {
 			 }
 		} ]
 	});
+    
+    var oTable = $('#employee-table').dataTable();
+    
+    $("#paginate_left").click(function(){
+    	oTable.fnPageChange( 'previous' );
+	});
+	$("#paginate_right").click(function(){
+		oTable.fnPageChange( 'next' );
+	});
 } );
-
-
-
-//
-//$(document).ready(function() {
-//    $('#example').DataTable( {
-//        "paging":   false,
-//        "ordering": false,
-//        "info":     false
-//    } );
-//} );
-//
-//
-//.dataTables_filter {
-//display: none;
-//} 

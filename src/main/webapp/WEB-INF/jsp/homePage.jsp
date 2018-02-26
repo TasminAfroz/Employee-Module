@@ -52,14 +52,14 @@
 						<div class="col-4">
 							<a href="/employee/create" type="button" class="btn btn-sm btn-purple">Create</a>
 						</div>
-						<div class="col-2 align-items-center">
-							<span>1-22 / 22</span>
+						<div class="col-2 align-items-center text-center">
+							<span id="paginate_info"></span>
 							<div class="btn-group btn-group-sm" role="group"
 								aria-label="Basic example">
-								<button type="button" class="btn btn-sm btn-offwhite border">
+								<button id="paginate_left" type="button" class="btn btn-sm btn-offwhite border">
 									<img src="/img/arrow_left.svg" alt="Previous">
 								</button>
-								<button type="button" class="btn btn-sm btn-offwhite border">
+								<button id="paginate_right" type="button" class="btn btn-sm btn-offwhite border">
 									<img src="/img/arrow_right.svg" alt="Next">
 								</button>
 							</div>
