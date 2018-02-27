@@ -83,7 +83,7 @@
 						<div class="card mb-3">
 							<form action="" id="form-new-employee" class="card-body" enctype="multipart/form-data">
 							<c:if test="${ employee.name != null }">
-							<input type="text" id="emp_id" value="${ employee.employeeId }" hidden>
+							<input type="text" id="emp_id" name="employeeId" value="${ employee.employeeId }" hidden>
 							</c:if>
 							
 								<div class="row justify-content-between mb-3">
@@ -91,9 +91,10 @@
 										<div class="row justify-content-start">
 											<div class="col-auto">
 											<div class="row">
-												<input type='file' id="up_img"  accept="image/*"/>
+												<input type='file' id="up_img" name="_photo"  accept="image/*"/>
 											</div>
 											<div class="row">
+											<input type="text" id="is_new_img" value="0" name="is_new_img" hidden>
 											<c:choose>
 											<c:when test="${ employee.photo == null }">
 												<img class="img-responsive"
@@ -110,10 +111,10 @@
 											<div class="col-auto">
 												<h6 for="name">Name</h6>
 												<div class="form-group">
-													<input type="text" class="form-control form-control-lg"
+													<input type="text" class="form-control form-control-lg" name="name"
 														id="name" placeholder="Employee's Name" value="${ employee.name }" required>
 												</div>
-												<select class="form-control" name="work_time" id="work_time" required>
+												<select class="form-control" name="workTime" id="work_time" required>
 													<option value="part_time" <c:if test="${ employee.workTime == 'part_time' }">selected</c:if>>Part Time</option>
 													<option value="full_time" <c:if test="${ employee.workTime == 'full_time' }">selected</c:if>>Full Time</option>
 												</select>
@@ -148,7 +149,7 @@
 														Address</label>
 													<div class="col-sm-8">
 														<select class="form-control form-control-sm"
-															id="working_address" required>
+															id="working_address" name="workingAddress" required>
 															<option value="company_1" <c:if test="${ employee.workingAddress == 'company_1' }">selected</c:if>>Company 1</option>
 															<option value="company_2" <c:if test="${ employee.workingAddress == 'company_2' }">selected</c:if>>Company 2</option>
 														</select>
@@ -159,7 +160,7 @@
 													<label for="mobile" class="col-sm-4 col-form-label">Work
 														Mobile</label>
 													<div class="col-sm-8">
-														<input type="number" class="form-control form-control-sm"
+														<input type="number" class="form-control form-control-sm" name="workMobile"
 														placeholder="11-13 digits' number"	id="mobile" value="${ employee.workMobile }"  min="1000000000" max="9999999999999"   required>
 													</div>
 												</div>
@@ -169,7 +170,7 @@
 														Location</label>
 													<div class="col-sm-8">
 														<input type="text" class="form-control form-control-sm"
-															id="location" value="${ employee.workLocation }" required>
+															id="location" name="workLocation" value="${ employee.workLocation }" required>
 													</div>
 												</div>
 
@@ -177,7 +178,7 @@
 													<label for="email" class="col-sm-4 col-form-label">Work
 														Email</label>
 													<div class="col-sm-8">
-														<input type="email" class="form-control form-control-sm"
+														<input type="email" class="form-control form-control-sm" name="workEmail"
 															id="email" value="${ employee.workEmail }" required>
 													</div>
 												</div>
@@ -187,7 +188,7 @@
 														Phone</label>
 													<div class="col-sm-8">
 														<input type="number" class="form-control form-control-sm"
-														placeholder="5-15 digits' number"	 id="work_phone" value="${ employee.workPhone }" min="10000" max="999999999999999" required>
+														placeholder="5-15 digits' number"	name="workPhone" id="work_phone" value="${ employee.workPhone }" min="10000" max="999999999999999" required>
 													</div>
 												</div>
 											</div>
@@ -223,7 +224,7 @@
 													<label for="manager" class="col-sm-4 col-form-label">Manager</label>
 													<div class="col-sm-8">
 														<select class="form-control form-control-sm"
-															name='employee_for_manager' id="employee_for_manager">
+															name='manager' id="employee_for_manager">
 															<option value="">Select a manager</option>
 															<c:forEach var="_employee" items="${employeeList}">
 																<c:if test="${_employee.employeeId != employee.employeeId }">
@@ -238,7 +239,7 @@
 													<label for="coach" class="col-sm-4 col-form-label">Coach</label>
 													<div class="col-sm-8">
 														<select class="form-control form-control-sm"
-															name='employee_for_coach' id="employee_for_coach">
+															name='coach' id="employee_for_coach">
 															<option value="" selected>Select a coach</option>
 															<c:forEach var="_employee" items="${employeeList}">
 																<c:if test="${_employee.employeeId != employee.employeeId }">
@@ -251,7 +252,7 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<textarea class="form-control" id="other" rows="3"
+											<textarea class="form-control" id="other" rows="3" name="otherInfo"
 												placeholder="Other Information">${ employee.otherInfo }</textarea>
 										</div>
 									</div>
@@ -265,7 +266,7 @@
 													<label for="country" class="col-sm-4 col-form-label">Country</label>
 													<div class="col-sm-8">
 														<select class="form-control form-control-sm"
-															name='country' id="country" required>
+															name='nationality' id="country" required>
 															<c:forEach var="country" items="${countryList}">
 																<option value="${country.id}" <c:if test="${ country.id == employee.nationality.id }">selected</c:if>>${country.countryName}</option>
 															</c:forEach>
@@ -277,7 +278,7 @@
 													<label for="id-no" class="col-sm-4 col-form-label">Identification
 														No</label>
 													<div class="col-sm-8">
-														<input type="text" class="form-control form-control-sm"
+														<input type="text" class="form-control form-control-sm" name="idNo"
 															id="id-no" value="${ employee.idNo == null? '': employee.idNo}" required>
 													</div>
 												</div>
@@ -286,7 +287,7 @@
 													<label for="passport-no" class="col-sm-4 col-form-label">Passport
 														No</label>
 													<div class="col-sm-8">
-														<input type="text" class="form-control form-control-sm"
+														<input type="text" class="form-control form-control-sm" name="passportNo"
 															id="passport-no" value="${ employee.passportNo }">
 													</div>
 												</div>
@@ -297,7 +298,7 @@
 													</label>
 													<div class="col-sm-8">
 														<input type="text" class="form-control form-control-sm"
-															id="bank-acc-no" value="${ employee.accountNo }">
+															id="bank-acc-no" name="accountNo" value="${ employee.accountNo }">
 													</div>
 												</div>
 
@@ -306,7 +307,7 @@
 												<div class="form-group row">
 													<label for="gender" class="col-sm-4 col-form-label">Gender</label>
 													<div class="col-sm-8">
-														<select class="form-control form-control-sm" id="gender" required>
+														<select class="form-control form-control-sm" id="gender" name="gender" required>
 															<option value="male" <c:if test="${ emplpyee.gender == 'male' }">selected</c:if>>Male</option>
 															<option value="female" <c:if test="${ emplpyee.gender == 'female' }">selected</c:if>>Female</option>
 															<option value="other" <c:if test="${ emplpyee.gender == 'other' }">selected</c:if>>Other</option>
@@ -319,7 +320,7 @@
 														class="col-sm-4 col-form-label">Maritial Status</label>
 													<div class="col-sm-8">
 														<select class="form-control form-control-sm"
-															id="maritial-status">
+															id="maritial-status" name="maritalStatus">
 															<option value="single" <c:if test="${ employee.maritalStatus == 'single' }">selected</c:if>>Single</option>
 															<option value="married" <c:if test="${ employee.maritalStatus == 'married' }">selected</c:if>>Married</option>
 															<option value="other" <c:if test="${ employee.maritalStatus == 'other' }">selected</c:if>>Other</option>
@@ -334,7 +335,7 @@
 													<label for="home-address" class="col-sm-4 col-form-label">Home
 														Address</label>
 													<div class="col-sm-8">
-														<input type="text" class="form-control form-control-sm"
+														<input type="text" class="form-control form-control-sm" name="homeAddress"
 															id="home-address" value="${ employee.homeAddress }" required>
 													</div>
 												</div>
@@ -343,7 +344,7 @@
 													<label for="dob" class="col-sm-4 col-form-label">Date
 														of Birth</label>
 													<div class="col-sm-8">
-														<input type="date" class="form-control form-control-sm"
+														<input type="date" class="form-control form-control-sm" name="dateOfBirth"
 															id="dob" value="${ employee.dateOfBirth.toString().split(' ')[0] }" required>
 													</div>
 												</div>
@@ -394,6 +395,7 @@
 		                var reader = new FileReader();
 
 		                reader.onload = function (e) {
+		                	$('#is_new_img').val("1");
 		                    $('#profile_img').prop('src', e.target.result);
 		                };
 

@@ -45,8 +45,8 @@ public class RestEmployeeController {
 		return employeeRepository.findAll(input);
 	}
 	
-	@RequestMapping(value = {"/save"}, method = RequestMethod.PUT)
-	public int create(@RequestParam(value = "photo", required = false) MultipartFile photo, @Valid Employee employee) throws IOException {
+	@RequestMapping(value = {"/save"}, method = RequestMethod.POST)
+	public int create(@RequestParam(value = "_photo", required = false) MultipartFile photo, @Valid Employee employee) throws IOException {
 		System.out.println("in");
 //		employeeService.saveEmployee(employee);
 		if(photo != null && !photo.isEmpty()) 
@@ -59,9 +59,13 @@ public class RestEmployeeController {
 	}
 	
 	@RequestMapping(value = {"/update"}, method = RequestMethod.PUT)
-	public int update(@RequestParam(value = "photo", required = false) MultipartFile photo, @Valid Employee employee) throws IOException {
-		if(photo != null && !photo.isEmpty())
+	public int update(@RequestParam(value = "_photo", required = false) MultipartFile photo, 
+			@Valid Employee employee, @RequestParam(value = "is_new_img", required = false) String isNewImg) throws IOException {
+		System.out.println("isNewImg: "+isNewImg);
+		if(isNewImg.equalsIgnoreCase("1") && photo != null && !photo.isEmpty())
             employee.setPhoto(photo.getBytes());
+		else
+			employee.setPhoto(employeeService.findById(employee.getEmployeeId()).getPhoto());
 
 		employeeService.saveEmployee(employee);
 		// Create Response Object

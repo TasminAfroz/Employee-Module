@@ -90,12 +90,16 @@ public class EmployeeController {
 	
 	@RequestMapping("/details/{id}")
 	public String employeeDetails(@PathVariable("id")int id, Model model) {
+		Employee employee = employeeRepository.findOne(id);
+		if(employee == null) {
+			return "redirect:/employee/create";
+		}
 		List<Country>  countryList= (List<Country>) countryRepository.findAll();
 		List<Employee>  employeeList= (List<Employee>) employeeRepository.findAll();
 //		List<Employee>  managerList= coachList;
 		List<Department>  departmentList = (List<Department>) departmentRepository.findAll();
 		List<JobTitle> jobTitleList = (List<JobTitle>) jobRepository.findAll();
-		model.addAttribute("employee", employeeRepository.findOne(id));
+		model.addAttribute("employee", employee);
 		model.addAttribute("countryList", countryList);
 		model.addAttribute("employeeList", employeeList);
 //		model.addAttribute("managerList", employeeList);
