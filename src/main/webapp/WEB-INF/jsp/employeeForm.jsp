@@ -160,7 +160,7 @@
 														Mobile</label>
 													<div class="col-sm-8">
 														<input type="number" class="form-control form-control-sm"
-														placeholder="11-13 digits' number"	id="mobile" value="${ employee.workMobile }"  min="10000000000" max="9999999999999"   required>
+														placeholder="11-13 digits' number"	id="mobile" value="${ employee.workMobile }"  min="1000000000" max="9999999999999"   required>
 													</div>
 												</div>
 
