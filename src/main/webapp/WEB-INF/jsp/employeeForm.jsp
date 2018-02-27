@@ -387,12 +387,14 @@
 					}
 				}
 				
+				 //showing img when chose.
+				
 				$('#up_img').on('change', function(event){
 					// alert('hi');
 					var input = this;
 					if (input.files && input.files[0]) {
 		                var reader = new FileReader();
-
+		             
 		                reader.onload = function (e) {
 		                    $('#profile_img').prop('src', e.target.result);
 		                };
