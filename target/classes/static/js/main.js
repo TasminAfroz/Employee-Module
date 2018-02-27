@@ -18,6 +18,7 @@ $(document).ready( function () {
 //		    console.log(pageInfo.start)
 //		    console.log(pageInfo.end)
 //		    console.log(pageInfo.recordsDisplay)
+//		    page number how many total
 		    var info = (pageInfo.start+1)+"-"+pageInfo.end+" / "+pageInfo.recordsDisplay;
 		    $("#paginate_info").text(info);
 		  },
