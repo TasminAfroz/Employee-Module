@@ -7,7 +7,7 @@ $(document).ready( function () {
 		'serverSide' : true,
 		'searching': false,
 		'lengthChange': false,
-		"pageLength": 10,
+		"pageLength": 2,
 		'bInfo': false,
 		// https://datatables.net/reference/api/page.info()
 		// https://legacy.datatables.net/ref
